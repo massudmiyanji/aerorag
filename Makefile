@@ -1,4 +1,4 @@
-.PHONY: help up down logs lint format test check
+.PHONY: help up down logs lint format test check corpus
 
 help:  ## Show available targets
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "} {printf "  %-8s %s\n", $$1, $$2}'
@@ -25,3 +25,6 @@ test:  ## Run the test suite
 	uv run pytest
 
 check: lint test  ## Everything CI runs
+
+corpus:  ## Download the document corpus into data/raw
+	uv run python scripts/download_corpus.py
